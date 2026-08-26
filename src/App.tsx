@@ -23,7 +23,7 @@ const STEPS = [
   {
     emoji: "🍯",
     title: "Get paid sweeter",
-    body: "A slice of every trade drips into the Candy Jar. The higher your streak, the bigger your share.",
+    body: "Rewards drip into the Candy Jar. The higher your streak, the bigger your scoop.",
   },
   {
     emoji: "🫠",
@@ -40,25 +40,52 @@ type Sprinkle = {
   dur: number;
   delay: number;
   color: string;
+  shape: "circle" | "rod";
 };
+
+/* ─── pure-CSS candy mascot ─── */
+function CandyMascot() {
+  return (
+    <div className="mascot" aria-hidden>
+      <div className="mascot-glow" />
+      <div className="lolli">
+        <div className="lolli-stick" />
+        <div className="lolli-head">
+          <div className="lolli-swirl" />
+          <div className="lolli-shine" />
+          <div className="face">
+            <div className="eye left">
+              <span className="sparkle" />
+            </div>
+            <div className="eye right">
+              <span className="sparkle" />
+            </div>
+            <div className="blush bl" />
+            <div className="blush br" />
+            <div className="smile" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function App() {
   const [sprinkles, setSprinkles] = useState<Sprinkle[]>([]);
   const [day, setDay] = useState(0);
 
-  // build floating sprinkles on mount
   useEffect(() => {
-    const arr: Sprinkle[] = Array.from({ length: 22 }).map(() => ({
+    const arr: Sprinkle[] = Array.from({ length: 26 }).map(() => ({
       left: Math.random() * 100,
       size: 8 + Math.random() * 16,
       dur: 12 + Math.random() * 16,
       delay: Math.random() * -28,
       color: SPRINKLE_COLORS[Math.floor(Math.random() * SPRINKLE_COLORS.length)],
+      shape: Math.random() > 0.5 ? "circle" : "rod",
     }));
     setSprinkles(arr);
   }, []);
 
-  // animate the demo streak counter up to 47
   useEffect(() => {
     let n = 0;
     const target = 47;
@@ -72,16 +99,23 @@ export default function App() {
 
   return (
     <>
-      {/* floating background sprinkles */}
+      {/* animated background blobs */}
+      <div className="blobs" aria-hidden>
+        <span className="blob b1" />
+        <span className="blob b2" />
+        <span className="blob b3" />
+      </div>
+
+      {/* floating sprinkles */}
       <div className="sprinkles" aria-hidden>
         {sprinkles.map((s, i) => (
           <span
             key={i}
-            className="sprinkle"
+            className={`sprinkle ${s.shape}`}
             style={{
               left: `${s.left}%`,
-              width: s.size,
-              height: s.size,
+              width: s.shape === "rod" ? s.size * 0.5 : s.size,
+              height: s.shape === "rod" ? s.size * 1.4 : s.size,
               background: s.color,
               animationDuration: `${s.dur}s`,
               animationDelay: `${s.delay}s`,
@@ -94,7 +128,7 @@ export default function App() {
       <nav className="nav">
         <div className="nav-inner">
           <div className="brand">
-            <span className="dot" />
+            <span className="brand-candy" />
             Pons Candy
           </div>
           <div className="nav-links">
@@ -107,41 +141,46 @@ export default function App() {
             <a href="#tokenomics" className="hide-mobile">
               Tokenomics
             </a>
-            <a className="btn btn-primary" href={LAUNCHPAD} target="_blank" rel="noopener">
+            <a className="btn btn-primary sm" href={LAUNCHPAD} target="_blank" rel="noopener">
               Buy on Pons 🍬
             </a>
           </div>
         </div>
       </nav>
 
-      <main className="wrap">
+      <main>
         {/* HERO */}
-        <section className="hero">
-          <span className="pill">🍭 Live on Robinhood Chain</span>
-          <h1>
-            Hold your candy.
-            <br />
-            <span className="grad">Grow your streak.</span>
-          </h1>
-          <p className="sub">
-            Pons Candy rewards the sweetest hands. The longer you hold without selling, the
-            bigger your slice of the Candy Jar. Sell, and your streak melts away.
-          </p>
-          <div className="hero-cta">
-            <a className="btn btn-primary" href={LAUNCHPAD} target="_blank" rel="noopener">
-              Grab $PONSCANDY 🍬
-            </a>
-            <a className="btn btn-ghost" href="#streak">
-              See how streaks work
-            </a>
+        <section className="hero wrap">
+          <div className="hero-copy">
+            <span className="pill">🍭 Live on Robinhood Chain</span>
+            <h1>
+              Hold your candy.
+              <br />
+              <span className="grad">Grow your streak.</span>
+            </h1>
+            <p className="sub">
+              Pons Candy rewards the sweetest hands. The longer you hold without selling, the
+              bigger your scoop from the Candy Jar. Sell, and your streak melts away.
+            </p>
+            <div className="hero-cta">
+              <a className="btn btn-primary" href={LAUNCHPAD} target="_blank" rel="noopener">
+                Grab $PONSCANDY 🍬
+              </a>
+              <a className="btn btn-ghost" href="#streak">
+                See how streaks work
+              </a>
+            </div>
+            <div className="ticker-chip">
+              <span>🎟️</span> $PONSCANDY
+            </div>
           </div>
-          <div className="ticker-chip">
-            <span>🎟️</span> $PONSCANDY
+          <div className="hero-visual">
+            <CandyMascot />
           </div>
         </section>
 
         {/* STREAK CARD */}
-        <section className="section" id="streak">
+        <section className="section wrap" id="streak">
           <div className="section-head">
             <div className="kicker">The Sugar Streak</div>
             <h2>Every day you hold, it gets sweeter</h2>
@@ -164,7 +203,7 @@ export default function App() {
         </section>
 
         {/* TIERS */}
-        <section className="section">
+        <section className="section wrap">
           <div className="section-head">
             <div className="kicker">Sweetness Tiers</div>
             <h2>The longer you last, the harder your candy</h2>
@@ -182,7 +221,7 @@ export default function App() {
         </section>
 
         {/* HOW IT WORKS */}
-        <section className="section" id="how">
+        <section className="section wrap" id="how">
           <div className="section-head">
             <div className="kicker">How it works</div>
             <h2>Four sweet steps</h2>
@@ -200,17 +239,18 @@ export default function App() {
         </section>
 
         {/* CANDY JAR BAND */}
-        <section className="section">
+        <section className="section wrap">
           <div className="jar-band">
-            <h2>🍯 The Candy Jar</h2>
+            <div className="jar-emoji">🍯</div>
+            <h2>The Candy Jar</h2>
             <p>
-              A slice of every trade drips into the shared Candy Jar. It&apos;s split across
-              holders by streak — so the sweetest, most patient hands scoop the most sugar.
+              The Candy Jar rewards the sweetest, most patient hands. It&apos;s split across
+              holders by streak — the longer you hold, the bigger your scoop of sugar.
             </p>
             <div className="jar-stats">
               <div className="jar-stat">
-                <div className="big">50%</div>
-                <div className="lbl">of trade fees → Candy Jar</div>
+                <div className="big">💎</div>
+                <div className="lbl">rewards patient hands</div>
               </div>
               <div className="jar-stat">
                 <div className="big">3.0x</div>
@@ -225,7 +265,7 @@ export default function App() {
         </section>
 
         {/* TOKENOMICS */}
-        <section className="section" id="tokenomics">
+        <section className="section wrap" id="tokenomics">
           <div className="section-head">
             <div className="kicker">Tokenomics</div>
             <h2>Simple &amp; sweet</h2>
@@ -274,7 +314,7 @@ export default function App() {
         </section>
 
         {/* FAQ */}
-        <section className="section">
+        <section className="section wrap">
           <div className="section-head">
             <div className="kicker">Questions</div>
             <h2>Sweet answers</h2>
@@ -302,10 +342,10 @@ export default function App() {
               </p>
             </details>
             <details>
-              <summary>Where do the Candy Jar rewards come from?</summary>
+              <summary>How does the Candy Jar reward holders?</summary>
               <p>
-                A share of trading activity feeds the Candy Jar, which is distributed to holders
-                weighted by their streak tier. The more patient the hand, the bigger the scoop.
+                The Candy Jar is distributed to holders weighted by their streak tier. The more
+                patient the hand, the bigger the scoop of sugar.
               </p>
             </details>
             <details>
@@ -319,12 +359,15 @@ export default function App() {
         </section>
 
         {/* FINAL CTA */}
-        <section className="final">
-          <h2>Stay sweet. 🍬</h2>
-          <p>Grab your candy, grow your streak, and let the sweetest hands get paid.</p>
-          <a className="btn btn-primary" href={LAUNCHPAD} target="_blank" rel="noopener">
-            Buy $PONSCANDY on Pons →
-          </a>
+        <section className="final wrap">
+          <div className="final-card">
+            <div className="final-candy" />
+            <h2>Stay sweet. 🍬</h2>
+            <p>Grab your candy, grow your streak, and let the sweetest hands get paid.</p>
+            <a className="btn btn-primary" href={LAUNCHPAD} target="_blank" rel="noopener">
+              Buy $PONSCANDY on Pons →
+            </a>
+          </div>
         </section>
       </main>
 
@@ -332,7 +375,7 @@ export default function App() {
       <footer className="footer">
         <div className="wrap">
           <div className="brand">
-            <span className="dot" />
+            <span className="brand-candy" />
             Pons Candy
           </div>
           <div>$PONSCANDY · Launched on Pons · Robinhood Chain</div>
