@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const LAUNCHPAD = "https://www.ponsfamily.com/launchpad";
+const LAUNCHPAD = "https://www.ponsfamily.com/launchpad/ioo";
 
 const SPRINKLE_COLORS = ["#ff4fa3", "#ff9ac4", "#ffd93d", "#b06bff", "#ff9a4f"];
 
@@ -259,7 +259,7 @@ export default function App() {
         </p>
 
         {/* single quiet CTA */}
-        <a className="cs-link" href={soon} target="_blank" rel="noopener">
+        <a className="cs-link" href={LAUNCHPAD} target="_blank" rel="noopener">
           Follow the launch on Pons →
         </a>
 
