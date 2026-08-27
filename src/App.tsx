@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const LAUNCHPAD = "https://www.ponsfamily.com/launchpad/ioo";
+const LAUNCHPAD = "https://www.ponsfamily.com/launchpad/0x94780118Ba35c34c8fB9c06A9ff14a3FCe0A72Ac";
 
 const SPRINKLE_COLORS = ["#ff4fa3", "#ff9ac4", "#ffd93d", "#b06bff", "#ff9a4f"];
 
