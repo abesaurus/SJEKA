@@ -110,6 +110,164 @@ img { display: block; max-width: 100%; }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ═══════════════════════════════════════════════
+   CANDY PLAYGROUND — little characters running around
+   ═══════════════════════════════════════════════ */
+.playground { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+/* horizontal travel lane */
+.runner { position: absolute; left: 0; will-change: transform; }
+.runner.ltr { animation: run-ltr linear infinite; }
+.runner.rtl { animation: run-rtl linear infinite; }
+@keyframes run-ltr {
+  from { transform: translateX(-14vw); }
+  to   { transform: translateX(114vw); }
+}
+@keyframes run-rtl {
+  from { transform: translateX(114vw); }
+  to   { transform: translateX(-14vw); }
+}
+
+/* bouncy hop on top of the travel */
+.hopper {
+  position: relative;
+  transform-origin: bottom center;
+  animation: hop 0.7s ease-in-out infinite;
+}
+@keyframes hop {
+  0%, 100% { translate: 0 0; }
+  40% { translate: 0 -18px; }
+  55% { translate: 0 -18px; }
+}
+
+.cr { position: relative; width: 62px; height: 74px; }
+
+/* legs shared wiggle */
+@keyframes legswing {
+  0%, 100% { transform: rotate(-16deg); }
+  50% { transform: rotate(16deg); }
+}
+@keyframes armswing {
+  0%, 100% { transform: rotate(20deg); }
+  50% { transform: rotate(-24deg); }
+}
+
+/* ── mini lollipop critter ── */
+.cr-lolli .cl-stick {
+  position: absolute; bottom: 14px; left: 50%;
+  width: 5px; height: 26px; margin-left: -2.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fff, #ffc2e0);
+}
+.cr-lolli .cl-head {
+  position: absolute; top: 2px; left: 50%;
+  width: 44px; height: 44px; margin-left: -22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, #fff 0 8%, transparent 12%),
+    conic-gradient(from 0deg, #ff4fa3 0 25%, #fff0f8 25% 50%, #ff8fc4 50% 75%, #fff0f8 75% 100%);
+  box-shadow: inset -4px -4px 8px rgba(226,28,127,0.25), 0 4px 8px rgba(226,28,127,0.25);
+}
+.cr-lolli .cl-swirl {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 46%, rgba(255,255,255,0.4) 48% 52%, transparent 54%);
+  animation: spin 6s linear infinite;
+}
+.cr-lolli .cl-eye { position: absolute; top: 18px; width: 6px; height: 8px; background: #3d0f28; border-radius: 50%; }
+.cr-lolli .cl-eye.l { left: 13px; }
+.cr-lolli .cl-eye.r { right: 13px; }
+.cr-lolli .cl-smile { position: absolute; top: 27px; left: 50%; width: 14px; height: 7px; margin-left: -7px; border: 2px solid #3d0f28; border-top: 0; border-radius: 0 0 14px 14px; }
+.cr-lolli .cl-leg { position: absolute; bottom: 4px; width: 4px; height: 12px; background: #ff2d92; border-radius: 999px; transform-origin: top center; animation: legswing 0.35s ease-in-out infinite; }
+.cr-lolli .cl-leg.l { left: 22px; }
+.cr-lolli .cl-leg.r { right: 22px; animation-delay: -0.17s; }
+
+/* ── gummy bear critter ── */
+.cr-gummy .g-body {
+  position: absolute; top: 14px; left: 50%;
+  width: 44px; height: 46px; margin-left: -22px;
+  border-radius: 46% 46% 42% 42%;
+  background: linear-gradient(160deg, #ff7ac0, #ff2d92);
+  box-shadow: inset -5px -6px 10px rgba(160,0,80,0.3), inset 5px 5px 10px rgba(255,255,255,0.4), 0 4px 8px rgba(226,28,127,0.25);
+}
+.cr-gummy .g-ear { position: absolute; top: 8px; width: 16px; height: 16px; border-radius: 50%; background: #ff5aa8; box-shadow: inset -2px -2px 4px rgba(160,0,80,0.3); }
+.cr-gummy .g-ear.l { left: 8px; }
+.cr-gummy .g-ear.r { right: 8px; }
+.cr-gummy .g-eye { position: absolute; top: 26px; width: 6px; height: 8px; background: #3d0f28; border-radius: 50%; z-index: 2; }
+.cr-gummy .g-eye.l { left: 20px; }
+.cr-gummy .g-eye.r { right: 20px; }
+.cr-gummy .g-mouth { position: absolute; top: 36px; left: 50%; width: 12px; height: 6px; margin-left: -6px; border: 2px solid #3d0f28; border-top: 0; border-radius: 0 0 12px 12px; z-index: 2; }
+.cr-gummy .g-cheek { position: absolute; top: 34px; width: 8px; height: 5px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+.cr-gummy .g-cheek.l { left: 12px; }
+.cr-gummy .g-cheek.r { right: 12px; }
+.cr-gummy .g-arm { position: absolute; top: 24px; width: 8px; height: 16px; background: #ff5aa8; border-radius: 999px; transform-origin: top center; animation: armswing 0.4s ease-in-out infinite; }
+.cr-gummy .g-arm.l { left: 6px; }
+.cr-gummy .g-arm.r { right: 6px; animation-delay: -0.2s; }
+.cr-gummy .g-leg { position: absolute; bottom: 4px; width: 9px; height: 14px; background: #ff2d92; border-radius: 999px; transform-origin: top center; animation: legswing 0.32s ease-in-out infinite; }
+.cr-gummy .g-leg.l { left: 18px; }
+.cr-gummy .g-leg.r { right: 18px; animation-delay: -0.16s; }
+
+/* ── wrapped candy critter ── */
+.cr-wrap .w-body {
+  position: absolute; top: 18px; left: 50%;
+  width: 42px; height: 34px; margin-left: -21px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #ffd93d, #ff9a4f);
+  box-shadow: inset -4px -4px 8px rgba(200,90,0,0.25), inset 4px 4px 8px rgba(255,255,255,0.5), 0 4px 8px rgba(226,28,127,0.2);
+}
+.cr-wrap .w-tail { position: absolute; top: 24px; width: 0; height: 0; border-top: 12px solid transparent; border-bottom: 12px solid transparent; }
+.cr-wrap .w-tail.l { left: 2px; border-right: 14px solid #ffb84f; }
+.cr-wrap .w-tail.r { right: 2px; border-left: 14px solid #ffb84f; }
+.cr-wrap .w-eye { position: absolute; top: 28px; width: 6px; height: 8px; background: #3d0f28; border-radius: 50%; z-index: 2; }
+.cr-wrap .w-eye.l { left: 20px; }
+.cr-wrap .w-eye.r { right: 20px; }
+.cr-wrap .w-smile { position: absolute; top: 37px; left: 50%; width: 12px; height: 6px; margin-left: -6px; border: 2px solid #3d0f28; border-top: 0; border-radius: 0 0 12px 12px; z-index: 2; }
+.cr-wrap .w-leg { position: absolute; bottom: 4px; width: 5px; height: 12px; background: #ff9a4f; border-radius: 999px; transform-origin: top center; animation: legswing 0.34s ease-in-out infinite; }
+.cr-wrap .w-leg.l { left: 22px; }
+.cr-wrap .w-leg.r { right: 22px; animation-delay: -0.17s; }
+
+/* ── donut critter ── */
+.cr-donut .d-body {
+  position: absolute; top: 12px; left: 50%;
+  width: 46px; height: 46px; margin-left: -23px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, transparent 0 22%, #b06bff 22% 30%, #ff7ac0 30% 100%);
+  box-shadow: 0 4px 8px rgba(226,28,127,0.25);
+}
+.cr-donut .d-body::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 22%, #ffd93d 0 3px, transparent 4px),
+    radial-gradient(circle at 70% 26%, #7cff6b 0 3px, transparent 4px),
+    radial-gradient(circle at 24% 60%, #4fc3ff 0 3px, transparent 4px),
+    radial-gradient(circle at 74% 66%, #fff 0 3px, transparent 4px),
+    radial-gradient(circle at 52% 20%, #ff2d92 0 3px, transparent 4px);
+}
+.cr-donut .d-hole { position: absolute; top: 50%; left: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #fff6ef; z-index: 2; }
+.cr-donut .d-eye { position: absolute; top: 20px; width: 5px; height: 7px; background: #3d0f28; border-radius: 50%; z-index: 3; }
+.cr-donut .d-eye.l { left: 15px; }
+.cr-donut .d-eye.r { right: 15px; }
+.cr-donut .d-smile { position: absolute; top: 30px; left: 50%; width: 10px; height: 5px; margin-left: -5px; border: 2px solid #3d0f28; border-top: 0; border-radius: 0 0 10px 10px; z-index: 3; }
+.cr-donut .d-leg { position: absolute; bottom: 4px; width: 6px; height: 12px; background: #b06bff; border-radius: 999px; transform-origin: top center; animation: legswing 0.33s ease-in-out infinite; }
+.cr-donut .d-leg.l { left: 20px; }
+.cr-donut .d-leg.r { right: 20px; animation-delay: -0.16s; }
+
+/* ── candy drop critter ── */
+.cr-drop .dr-body {
+  position: absolute; top: 12px; left: 50%;
+  width: 40px; height: 48px; margin-left: -20px;
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: linear-gradient(160deg, #a3d4ff, #4fc3ff);
+  box-shadow: inset -4px -5px 9px rgba(0,90,160,0.25), inset 4px 4px 8px rgba(255,255,255,0.6), 0 4px 8px rgba(0,120,200,0.22);
+}
+.cr-drop .dr-shine { position: absolute; top: 8px; left: 10px; width: 10px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.6); filter: blur(1px); }
+.cr-drop .dr-eye { position: absolute; top: 22px; width: 6px; height: 8px; background: #123; border-radius: 50%; z-index: 2; }
+.cr-drop .dr-eye.l { left: 16px; }
+.cr-drop .dr-eye.r { right: 16px; }
+.cr-drop .dr-smile { position: absolute; top: 32px; left: 50%; width: 12px; height: 6px; margin-left: -6px; border: 2px solid #123; border-top: 0; border-radius: 0 0 12px 12px; z-index: 2; }
+.cr-drop .dr-leg { position: absolute; bottom: 4px; width: 5px; height: 12px; background: #2aa8ef; border-radius: 999px; transform-origin: top center; animation: legswing 0.31s ease-in-out infinite; }
+.cr-drop .dr-leg.l { left: 18px; }
+.cr-drop .dr-leg.r { right: 18px; animation-delay: -0.15s; }
+
 /* ── coming-soon layout ── */
 .cs {
   position: relative;
@@ -347,5 +505,8 @@ img { display: block; max-width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   .mascot, .lolli-swirl, .cs-mark, .sprinkle, .cs-pill .dot,
-  .mesh span { animation: none !important; }
+  .mesh span, .runner, .hopper, .cr-lolli .cl-swirl,
+  .cr-lolli .cl-leg, .cr-gummy .g-leg, .cr-gummy .g-arm,
+  .cr-wrap .w-leg, .cr-donut .d-leg, .cr-drop .dr-leg { animation: none !important; }
+  .playground { display: none; }
 }
