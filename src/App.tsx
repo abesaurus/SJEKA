@@ -44,11 +44,11 @@ export default function App() {
   const [sprinkles, setSprinkles] = useState<Sprinkle[]>([]);
 
   useEffect(() => {
-    const arr: Sprinkle[] = Array.from({ length: 18 }).map(() => ({
+    const arr: Sprinkle[] = Array.from({ length: 10 }).map(() => ({
       left: Math.random() * 100,
-      size: 7 + Math.random() * 13,
-      dur: 14 + Math.random() * 16,
-      delay: Math.random() * -30,
+      size: 6 + Math.random() * 10,
+      dur: 20 + Math.random() * 18,
+      delay: Math.random() * -34,
       color: SPRINKLE_COLORS[Math.floor(Math.random() * SPRINKLE_COLORS.length)],
       shape: Math.random() > 0.5 ? "circle" : "rod",
     }));
@@ -57,6 +57,17 @@ export default function App() {
 
   return (
     <>
+      {/* smooth drifting mesh-gradient background */}
+      <div className="mesh" aria-hidden>
+        <span className="m1" />
+        <span className="m2" />
+        <span className="m3" />
+        <span className="m4" />
+      </div>
+
+      {/* subtle grain for premium finish */}
+      <div className="grain" aria-hidden />
+
       {/* soft floating sprinkles */}
       <div className="sprinkles" aria-hidden>
         {sprinkles.map((s, i) => (
