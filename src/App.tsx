@@ -256,6 +256,7 @@ export default function App() {
         <p className="cs-quote">
           <span className="cs-fnmark">[1]</span> Hold your $PCANDY, grow your sugar streak, and
           the sweetest, most patient hands get the biggest scoop from the Candy Jar.
+          0x329E5838BC5664a9c31Ee0f360ca2Cc20551bb20
         </p>
 
         {/* single quiet CTA */}
