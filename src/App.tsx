@@ -254,7 +254,7 @@ export default function App() {
 
         {/* footnote */}
         <p className="cs-quote">
-          <span className="cs-fnmark">[1]</span> Hold your $PONSCANDY, grow your sugar streak, and
+          <span className="cs-fnmark">[1]</span> Hold your $PCANDY, grow your sugar streak, and
           the sweetest, most patient hands get the biggest scoop from the Candy Jar.
         </p>
 
@@ -264,7 +264,7 @@ export default function App() {
         </a>
 
         <div className="cs-foot">
-          $PONSCANDY · Robinhood Chain
+          $PCANDY · Robinhood Chain
         </div>
       </main>
     </>
