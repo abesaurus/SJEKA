@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const LAUNCHPAD = "https://www.ponsfamily.com/launchpad0x1fbe138c85a82c9913a3cbe3236b10976828ee1f";
+const LAUNCHPAD = "https://www.ponsfamily.com";
 
 const SPRINKLE_COLORS = ["#ff4fa3", "#ff9ac4", "#ffd93d", "#b06bff", "#ff9a4f"];
 
@@ -256,7 +256,6 @@ export default function App() {
         <p className="cs-quote">
           <span className="cs-fnmark">[1]</span> Hold your $PCANDY, grow your sugar streak, and
           the sweetest, most patient hands get the biggest scoop from the Candy Jar.
-          0x1fbe138c85a82c9913a3cbe3236b10976828ee1f
         </p>
 
         {/* single quiet CTA */}
